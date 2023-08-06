@@ -1,0 +1,19 @@
+<h3>Your Bakery</h3>
+<div class="bakery-nav">
+  <%= link_to "View your ovens", ovens_path %>
+</div>
+
+<br/>
+<div class="store-inventory">
+  Cookies for sale:
+  <ul>
+    <% current_user.stored_cookies.group_by(&:fillings).each_pair do |fillings, cookies| %>
+      <li>
+        <%= pluralize(cookies.count, "Cookie") %>
+        with
+        <%= fillings || "no filling" %>
+        <%= link_to "Delete", oven_cookies_path(cookies.first, cookies.first), method: :delete, data: { confirm: "Are you sure you want to delete this cookie?" } %>
+      </li>
+    <% end %>
+  </ul>
+</div>
